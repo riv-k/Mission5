@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const AuctionItem = require("../models/AuctionItem");
 const seedData = require("../data/seedData");
 
-const MONGO_URI = "mongodb://localhost:27017";
+dotenv.config();
 
 module.exports = async function seedDatabase() {
   try {
+    const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
+
     // Connect to MongoDB & create/use mission5db
     const connection = await mongoose.connect(MONGO_URI, {
       dbName: "mission5db",
+      serverSelectionTimeoutMS: 500,
     });
     console.log("Connected to MongoDB");
 
@@ -21,6 +25,6 @@ module.exports = async function seedDatabase() {
 
     await mongoose.disconnect();
   } catch (error) {
-    console.error("Error seeding database:", error);
+    console.error("Error seeding database:", error.message);
   }
 };
