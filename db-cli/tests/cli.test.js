@@ -7,7 +7,14 @@ describe("CLI Tests", () => {
       done();
     });
   });
-  it.todo("should connect to MongoDB");
+
+  it("should connect to MongoDB", (done) => {
+    exec(`mission5 test-connection`, (error, stdout, stderr) => {
+      expect(stdout).toContain("Connected to MongoDB successfully\n");
+      done();
+    });
+  });
+
   it.todo("should add real seed data to the database");
   it.todo("should clear the seed data from the database");
   it.todo("should improve error handling and reporting");
