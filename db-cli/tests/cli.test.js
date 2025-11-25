@@ -13,6 +13,7 @@ describe("CLI Tests", () => {
     await mongoose.disconnect();
   });
 
+  // command: mission5 test
   it("should have 'mission5 test' implemented", (done) => {
     exec(`mission5 test`, (error, stdout, stderr) => {
       expect(stdout).toEqual("Test command executed\n");
@@ -20,6 +21,7 @@ describe("CLI Tests", () => {
     });
   });
 
+  // command: mission5 test-connection
   it("should connect to MongoDB", (done) => {
     exec(`mission5 test-connection`, (error, stdout, stderr) => {
       expect(stdout).toContain("Connected to MongoDB successfully\n");
@@ -27,6 +29,7 @@ describe("CLI Tests", () => {
     });
   });
 
+  // command: mission5 seed
   it("should add real seed data to the database", (done) => {
     exec(`mission5 seed`, async (error, stdout, stderr) => {
       try {
@@ -40,6 +43,7 @@ describe("CLI Tests", () => {
     });
   });
 
+  // command: mission5 unseed
   it("should clear the seed data from the database", (done) => {
     exec(`mission5 unseed`, async (error, stdout, stderr) => {
       try {
@@ -53,6 +57,8 @@ describe("CLI Tests", () => {
     });
   });
 
+  // command: $env:MONGO_URI="mongodb://badhost:27017"; mission5 seed
+  // reset env var after test: Remove-Item Env:MONGO_URI
   it("should improve error handling and reporting", (done) => {
     exec(
       `mission5 seed`,
@@ -66,6 +72,7 @@ describe("CLI Tests", () => {
     );
   });
 
+  //command: mission5 seed (run twice)
   it("should not duplicate data on multiple seed runs", (done) => {
     exec(`mission5 seed`, () => {
       exec(`mission5 seed`, async () => {
@@ -80,6 +87,7 @@ describe("CLI Tests", () => {
     });
   });
 
+  //command: mission5 unseed (run twice)
   it("should not throw error on multiple unseed runs", (done) => {
     exec(`mission5 unseed`, () => {
       exec(`mission5 unseed`, async (error, stdout, stderr) => {
