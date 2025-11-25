@@ -4,6 +4,13 @@ const AuctionItem = require("../models/AuctionItem");
 
 const MONGO_URI = "mongodb://localhost:27017/mission5db";
 
+// TODO:
+// 1. Include screenshots of relevant test runs for each iteration (failures and successes).
+// 2. Make tests more robust:
+//    - Check that the database used is actually "mission5db".
+//    - Check that the collection used is actually "AuctionItem".
+
+
 describe("CLI Tests", () => {
   beforeAll(async () => {
     await mongoose.connect(MONGO_URI);
