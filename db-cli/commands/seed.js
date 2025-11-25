@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const chalk = require("chalk").default;
+
 const AuctionItem = require("../models/AuctionItem");
 const seedData = require("../data/seedData");
 
@@ -14,17 +16,17 @@ module.exports = async function seedDatabase() {
       dbName: "mission5db",
       serverSelectionTimeoutMS: 500,
     });
-    console.log("Connected to MongoDB");
+    console.log(chalk.green("Connected to MongoDB"));
 
     // Clear existing data - if any
     await AuctionItem.deleteMany({});
 
     // Insert seed data
     await AuctionItem.insertMany(seedData);
-    console.log("Seed data inserted");
+    console.log(chalk.green("Seed data inserted"));
 
     await mongoose.disconnect();
   } catch (error) {
-    console.error("Error seeding database:", error.message);
+    console.error(chalk.red("Error seeding database:"), error.message);
   }
 };

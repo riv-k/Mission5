@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 const { program } = require("commander");
+const chalk = require("chalk").default;
 
 const testConnection = require("./commands/testConnection");
 const seedDatabase = require("./commands/seed");
@@ -9,7 +10,7 @@ program
   .command("test")
   .description("A test command")
   .action(() => {
-    console.log("Test command executed");
+    console.log(chalk.green("Test command executed"));
   });
 
 program
