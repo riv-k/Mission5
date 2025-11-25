@@ -1,3 +1,4 @@
+// if add more seed data, update test 3 in cli.test.js
 module.exports = [
   {
     title: "Vintage Camera",

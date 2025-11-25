@@ -32,6 +32,18 @@ describe("CLI Tests", () => {
     });
   });
 
-  it.todo("should clear the seed data from the database");
+  it("should clear the seed data from the database", (done) => {
+    exec(`mission5 unseed`, async (error, stdout, stderr) => {
+      expect(stdout).toContain("Seed data removed\n");
+
+      await mongoose.connect(MONGO_URI);
+      const items = await AuctionItem.find({});
+      expect(items.length).toBe(0);
+      await mongoose.disconnect();
+
+      done();
+    });
+
+  });
   it.todo("should improve error handling and reporting");
 });

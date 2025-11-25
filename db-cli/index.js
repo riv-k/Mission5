@@ -3,6 +3,7 @@ const { program } = require("commander");
 
 const testConnection = require("./commands/testConnection");
 const seedDatabase = require("./commands/seed");
+const unseedDatabase = require("./commands/unseed");
 
 program
   .command("test")
@@ -23,6 +24,13 @@ program
   .description("Seed the database with initial data")
   .action(async () => {
     await seedDatabase();
+  });
+
+program
+  .command("unseed")
+  .description("Remove seed data from the database")
+  .action(async () => {
+    await unseedDatabase();
   });
 
 program.parse();
