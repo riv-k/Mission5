@@ -2,6 +2,7 @@
 const { program } = require("commander");
 
 const testConnection = require("./commands/testConnection");
+const seedDatabase = require("./commands/seed");
 
 program
   .command("test")
@@ -15,6 +16,13 @@ program
   .description("Test MongoDB connection")
   .action(async () => {
     await testConnection();
+  });
+
+program
+  .command("seed")
+  .description("Seed the database with initial data")
+  .action(async () => {
+    await seedDatabase();
   });
 
 program.parse();

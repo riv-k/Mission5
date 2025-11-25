@@ -1,4 +1,8 @@
 const { exec } = require("child_process");
+const mongoose = require("mongoose");
+const AuctionItem = require("../models/AuctionItem");
+
+const MONGO_URI = "mongodb://localhost:27017/mission5db";
 
 describe("CLI Tests", () => {
   it("should have 'mission5 test' implemented", (done) => {
@@ -15,7 +19,19 @@ describe("CLI Tests", () => {
     });
   });
 
-  it.todo("should add real seed data to the database");
+  it("should add real seed data to the database", (done) => {
+    exec(`mission5 seed`, async (error, stdout, stderr) => {
+      expect(stdout).toContain("Seed data inserted\n");
+
+      await mongoose.connect(MONGO_URI);
+      const items = await AuctionItem.find({});
+      expect(items.length).toBe(3); // change if we modify seed data
+      await mongoose.disconnect();
+
+      done();
+    });
+  });
+
   it.todo("should clear the seed data from the database");
   it.todo("should improve error handling and reporting");
 });

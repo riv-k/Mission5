@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MONGO_URI = "mongodb://localhost:27017/mission5db";
+const MONGO_URI = "mongodb://localhost:27017";
 
 module.exports = async function testConnection() {
   try {
