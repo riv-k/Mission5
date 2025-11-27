@@ -15,7 +15,14 @@ router.get("/", async (req, res) => {
     serverSelectionTimeoutMS: 500,
   });
 
-  const filter = keyword ? { title: { $regex: keyword, $options: "i" } } : {};
+  const filter = keyword
+    ? {
+        $or: [
+          { title: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      }
+    : {};
 
   const items = await AuctionItem.find(filter);
 

@@ -8,7 +8,7 @@ module.exports = [
   },
   {
     title: "Antique Vase",
-    description: "A rare vase from Ming dynasty replica.",
+    description: "A rare, vintage vase from Ming dynasty replica.",
     start_price: 200,
     reserve_price: 500,
   },
