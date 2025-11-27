@@ -7,13 +7,18 @@ const router = express.Router();
 dotenv.config();
 
 router.get("/", async (req, res) => {
+  const keyword = req.query.keyword || "";
+
   const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
   const connection = await mongoose.connect(MONGO_URI, {
     dbName: "mission5db",
     serverSelectionTimeoutMS: 500,
   });
 
-  const items = await AuctionItem.find({});
+  const filter = keyword ? { title: { $regex: keyword, $options: "i" } } : {};
+
+  const items = await AuctionItem.find(filter);
+
   await mongoose.disconnect();
 
   res.status(200).json({ auctionItems: items });

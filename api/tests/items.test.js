@@ -39,6 +39,16 @@ describe("GET /api/items", () => {
     expect(res.body.auctionItems.length).toBe(0);
   });
 
-  it.todo("Should filter items based on keyword search");
+  it("Should filter items based on keyword search (searches title only)", async () => {
+    // Seed the database first so that there is data to retrieve
+    await execAsync("mission5 seed");
+
+    const keyword = "Vintage";
+    const res = await request(app).get(`/api/items?keyword=${keyword}`);
+    console.log(res.body.auctionItems);
+    expect(res.body.auctionItems.length).toBe(1);
+  });
+
+  it.todo("Should filter items based on title or description")
   it.todo("Should handle database errors gracefully");
 });
