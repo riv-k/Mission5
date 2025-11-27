@@ -40,12 +40,11 @@ describe("GET /api/items", () => {
   });
 
   it("Should filter items based on keyword search (searches title and description)", async () => {
-    // Seed the database first so that there is data to retrieve
     await execAsync("mission5 seed");
 
     const keyword = "Vintage";
     const res = await request(app).get(`/api/items?keyword=${keyword}`);
-    // console.log(res.body.auctionItems);
+
     expect(res.body.auctionItems.length).toBe(2);
 
     // All returned items should have the keyword in their title or description
@@ -66,7 +65,7 @@ describe("GET /api/items", () => {
     const res = await request(app).get("/api/items");
 
     expect(res.statusCode).toBe(500);
-    expect(res.body).toHaveProperty("error"); // assuming you return { error: "...message..." }
+    expect(res.body).toHaveProperty("error"); 
 
     // Restore original URI
     process.env.MONGO_URI = originalUri;
