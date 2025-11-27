@@ -58,5 +58,17 @@ describe("GET /api/items", () => {
     });
   });
 
-  it.todo("Should handle database errors gracefully");
+  it("Should handle database errors gracefully", async () => {
+    // Temporarily set MONGO_URI to an invalid host
+    const originalUri = process.env.MONGO_URI;
+    process.env.MONGO_URI = "mongodb://invalidhost:27017";
+
+    const res = await request(app).get("/api/items");
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty("error"); // assuming you return { error: "...message..." }
+
+    // Restore original URI
+    process.env.MONGO_URI = originalUri;
+  });
 });
